@@ -21,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
            c = a + b;
            a = b;
            b = c;
+            //Hey!
             Log.i("INFO", c.toString());
         }
     }
