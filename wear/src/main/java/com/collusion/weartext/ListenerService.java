@@ -1,0 +1,24 @@
+package com.collusion.weartext;
+// Created by Alex 12/3/14
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
+
+import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.WearableListenerService;
+
+public class ListenerService extends WearableListenerService {
+
+    @Override
+    public void onMessageReceived(MessageEvent messageEvent) {
+        Log.i("test", "onMessageReceived()");
+        final String message = new String(messageEvent.getData());
+        NotificationCompat.Builder b = new NotificationCompat.Builder(this);
+        b.setContentText(message);
+        b.setSmallIcon(R.drawable.ic_launcher);
+        b.setContentTitle("Test Notification");
+        b.setLocalOnly(true);
+        NotificationManagerCompat man = NotificationManagerCompat.from(this);
+        man.notify(0, b.build());
+    }
+}

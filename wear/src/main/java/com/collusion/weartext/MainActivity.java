@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.net.MalformedURLException;
@@ -42,17 +43,6 @@ public class MainActivity extends Activity {
                 mTextView = (TextView) stub.findViewById(R.id.text);
             }
         });
-
-
-        String target = ("http://wol.jw.org/en/wol/h/r1/lp-e");
-        Document doc = getDoc(target);
-        if (doc != null)
-        {
-            Elements article = doc.select("p.sb");
-            Log.i("INFO", article.get(0).text());
-        }
-
-
     }
 
 
@@ -67,5 +57,10 @@ public class MainActivity extends Activity {
         {
             return null;
         }
+    }
+
+    public void oops(View view){
+        TextView tv = (TextView)findViewById(R.id.result);
+        tv.setText("OOPS!");
     }
 }
