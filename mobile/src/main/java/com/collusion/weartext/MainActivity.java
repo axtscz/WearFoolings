@@ -1,10 +1,15 @@
 package com.collusion.weartext;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TimePicker;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,16 +32,21 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 
 
-public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, TimePickerDialog.OnTimeSetListener {
 
     GoogleApiClient googleApiClient;
 
     String message;
+
+    static Integer setHour;
+
+    static Integer setMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,5 +218,30 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         nm.notify(1001, builder.build());
     }
 
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+    }
+
+    public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState){
+            return new TimePickerDialog(getActivity(), this, Calendar.HOUR_OF_DAY, Calendar.MINUTE, false);
+        }
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            setMinute = view.getCurrentMinute();
+            setHour = view.getCurrentHour();
+            Log.i("INFO", setMinute.toString());
+            Log.i("INFO", setHour.toString());
+        }
+    }
+
+    public void SetTime(View view){
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timepicker");
+    }
 
 }
