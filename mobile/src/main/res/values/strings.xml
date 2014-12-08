@@ -4,5 +4,7 @@
     <string name="app_name">WearText</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_reminder">Set time for reminder</string>
+    <string name="title">Date</string>
 
 </resources>
