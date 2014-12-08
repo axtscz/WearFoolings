@@ -3,6 +3,7 @@ package com.collusion.weartext;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -88,6 +89,7 @@ public class MainActivity extends Activity implements MessageApi.MessageListener
             @Override
             public void run() {
                 tv.setText(message);
+                tv.setMovementMethod(new ScrollingMovementMethod());
             }
         });
 
